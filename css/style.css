@@ -236,29 +236,28 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  line-height: 1.1;
 }
 
 .company-name {
   color: #FFF;
-  font-size: 1.0rem;
+  font-size: 0.95rem; /* Slightly smaller to fit 3 lines */
   font-weight: 800;
-  line-height: 1.2;
   letter-spacing: 0.1px;
 }
 
 .brand-highlight {
   color: var(--neon-green);
-  display: inline-block;
 }
 
 .company-tagline {
   color: var(--neon-green);
-  font-size: 0.68rem;
-  font-weight: 500;
+  font-size: 0.65rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   margin-top: 1px;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 
