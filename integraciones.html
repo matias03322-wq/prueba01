@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integraciones - SAIDEX 4.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <style>
+        .bg-nodes {
+            background-color: #020617;
+            background-image: url('assets/integraciones.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Brushed Metal Philosophy Panel */
+        .filosofia-metal-panel {
+            background: linear-gradient(135deg, #2d3436 0%, #1a1a1a 50%, #2d3436 100%);
+            border: 2px solid #3d4446;
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(255, 255, 255, 0.05);
+            max-width: 900px;
+            margin: -30px auto 60px;
+            text-align: center;
+        }
+
+        .filosofia-metal-panel::before,
+        .filosofia-metal-panel::after,
+        .filosofia-metal-panel .rivet-bl,
+        .filosofia-metal-panel .rivet-br {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #555;
+            border-radius: 50%;
+            box-shadow: inset -1px -1px 2px #000, inset 1px 1px 2px #fff;
+            opacity: 0.8;
+        }
+
+        .filosofia-metal-panel::before {
+            top: 12px;
+            left: 12px;
+        }
+
+        .filosofia-metal-panel::after {
+            top: 12px;
+            right: 12px;
+        }
+
+        .about-card-title {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .card-hover-details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 229, 255, 0.3);
+            transform: translateY(100%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            z-index: 10;
+        }
+
+        .glass-card:hover .card-hover-details {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card-hover-details h4 {
+            color: #00E5FF;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .card-hover-details p {
+            color: #E2E8F0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .card-hover-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0;
+        }
+
+        .card-hover-details li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #94A3B8;
+            margin-bottom: 8px;
+        }
+
+        .card-hover-details li i {
+            color: #00E5FF;
+            font-size: 0.8rem;
+        }
+
+        .rivet-bl {
+            bottom: 12px;
+            left: 12px;
+        }
+
+        .rivet-br {
+            bottom: 12px;
+            right: 12px;
+        }
+
+        /* Glassmorphism Feature Grid */
+        .glass-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Integraciones Modern Cards */
+        .card-modern-header {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #00E5FF;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-modern-header i {
+            font-size: 1.1rem;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            height: 480px;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 229, 255, 0.1);
+            transform: perspective(1000px) rotateX(2deg);
+        }
+
+        .ai-overlay-labels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .ai-label {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #E2E8F0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .label-1 { top: 20%; left: 10%; }
+        .label-2 { top: 20%; right: 10%; }
+        .label-3 { bottom: 20%; left: 10%; }
+
+        .robot-avatar {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            z-index: 4;
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.4));
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Imagenes */
+        .image-container-3d {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-container-3d img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+
+        /* Custom Badges */
+        .protocol-mesh {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+            background-size: 15px 15px;
+            opacity: 0.3;
+        }
+
+        /* Unified Pill Footer Container */
+        .footer-pill {
+            background-color: #000000;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg stroke='%2300e5ff' stroke-opacity='0.08'%3E%3Cpath d='M0 20h20v20M20 0v20M50 50h20v20M70 40v10M90 90h10M90 80v10M10 90v10M0 90h10' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+            border-radius: 40px;
+            padding: 80px 60px;
+            margin: 0 auto;
+            max-width: var(--container-max);
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr;
+            gap: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 1), inset 0 0 40px rgba(0, 229, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (max-width: 900px) {
+            .glass-feature-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .glass-card {
+                height: auto;
+                min-height: 380px;
+                padding: 30px;
+            }
+
+            .footer-pill {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .filosofia-metal-panel {
+                padding: 30px 20px;
+                margin: 0 20px 40px;
+            }
+        }
+
+        /* Nav Transition */
+        .navbar.scrolled {
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 15px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-nodes">
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="SAIDEX 4.0" class="logo-img">
+                <div class="logo-text">
+                    <span class="company-name"><span class="brand-highlight">SAIDEX 4.0 Domótica</span> y
+                        Automatización</span>
+                    <span class="company-tagline">Tecnología avanzada para tu hogar</span>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-item">Inicio</a>
+                <a href="proyectos.html" class="nav-item">Proyectos</a>
+                <a href="tienda.html" class="nav-item">Tienda</a>
+                <a href="#contacto" class="nav-item">Contacto <i class="fa-solid fa-chevron-down"
+                        style="font-size: 0.7rem; margin-left: 5px;"></i></a>
+                
+                <!-- Mobile only actions -->
+                <div class="nav-actions-mobile">
+                    <a href="index.html#cotizar" class="btn btn-primary">Cotizar <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#login" class="btn btn-outline"><i class="fa-regular fa-user"></i> Login</a>
+                </div>
+            </nav>
+            <div class="nav-actions">
+                <a href="index.html#cotizar" class="btn btn-primary"
+                    style="background: linear-gradient(90deg, #F97316, #EA580C); border: none; padding: 10px 25px; border-radius: 12px; font-weight: 600;">Cotizar
+                    <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+            </div>
+            <div class="menu-toggle" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars" style="color: #FFF; font-size: 1.5rem;"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-integraciones" style="padding: 120px 0 80px; text-align: center;">
+            <div class="container">
+                <h1 class="hero-title scroll-bounce delay-1">
+                    Integraciones <span
+                        style="color: #00E5FF; text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);">Totales</span>
+                </h1>
+                <p class="hero-subtitle scroll-bounce delay-1"
+                    style="max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                    Unificando tu hogar bajo un solo ecosistema inteligente y estable.
+                </p>
+            </div>
+        </section>
+
+        <section style="padding-bottom: 100px;">
+            <div class="container">
+                <!-- Philosophy Brushed Metal Panel -->
+                <div class="filosofia-metal-panel scroll-bounce delay-2">
+                    <span class="rivet-bl"></span>
+                    <span class="rivet-br"></span>
+                    <p style="font-size: 1.15rem; color: #E2E8F0; line-height: 1.8; margin: 0;">
+                        Nuestra filosofía es que no deberías usar 10 aplicaciones diferentes para controlar 10
+                        dispositivos.
+                        <strong>SAIDEX 4.0</strong> centraliza todo bajo protocolos de nivel corporativo combinados con
+                        la facilidad de los asistentes comerciales.
+                    </p>
+                </div>
+
+                <!-- Integration Grid -->
+                <div class="glass-feature-grid">
+                    <!-- Asistentes de Voz -->
+                    <div class="glass-card scroll-bounce delay-3">
+                        <div class="card-modern-header">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                            Asistentes de Voz
+                        </div>
+                        <div class="image-container-3d">
+                            <img src="assets/asistentevoz.png" alt="Asistentes de Voz">
+                        </div>
+                        <div class="card-hover-details">
+                            <h4>Control por Voz</h4>
+                            <p>Interactúa con tu hogar de forma natural y fluida.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Amazon Alexa</li>
+                                <li><i class="fa-solid fa-check"></i> Google Assistant</li>
+                                <li><i class="fa-solid fa-check"></i> Apple HomeKit (Siri)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Protocolos Industriales -->
+                    <div class="glass-card scroll-bounce delay-4">
+                        <div class="card-modern-header">
+                            <i class="fa-solid fa-network-wired"></i>
+                            Protocolos Industriales
+                        </div>
+                        <div class="protocol-mesh"></div>
+                        <div class="image-container-3d">
+                            <img src="assets/protocolosindustriales.png" alt="Protocolo Industrial">
+                        </div>
+                        <div class="card-hover-details">
+                            <h4>Conectividad Robusta</h4>
+                            <p>Comunicación estable de largo alcance y bajo consumo.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Estándar KNX (Industrial)</li>
+                                <li><i class="fa-solid fa-check"></i> Redes Mesh Zigbee / Z-Wave</li>
+                                <li><i class="fa-solid fa-check"></i> Seguridad de grado militar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Una Sola App -->
+                    <div class="glass-card scroll-bounce delay-5">
+                        <div class="card-modern-header">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                            Una Sola App
+                        </div>
+                        <div class="image-container-3d">
+                            <img src="assets/unasolaapp.png" alt="Una Sola App">
+                        </div>
+                        <div class="card-hover-details">
+                            <h4>Interfaz Unificada</h4>
+                            <p>Todo el control de tu hogar en la palma de tu mano.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Control de Iluminación y Clima</li>
+                                <li><i class="fa-solid fa-check"></i> Gestión de Seguridad en Tiempo Real</li>
+                                <li><i class="fa-solid fa-check"></i> Creación de Escenas Personalizadas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Inteligencia Artificial -->
+                    <div class="glass-card scroll-bounce delay-6">
+                        <div class="card-modern-header">
+                            <i class="fa-solid fa-brain"></i>
+                            INTELIGENCIA (IA)
+                        </div>
+                        <div class="ai-overlay-labels">
+                            <div class="ai-label label-1">Análisis de Datos Ambientales</div>
+                            <div class="ai-label label-2">Métricas de Rendimiento</div>
+                            <div class="ai-label label-3">Avatar de IA y Red de Agentes</div>
+                        </div>
+                        <div class="image-container-3d">
+                            <img src="assets/inteligencia.png" alt="Inteligencia Artificial">
+                        </div>
+                        <i class="fa-solid fa-robot robot-avatar" style="color: #00E5FF; font-size: 2rem;"></i>
+                        <div class="card-hover-details">
+                            <h4>Cerebro Digital</h4>
+                            <p>Algoritmos avanzados que aprenden de tus rutinas.</p>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Optimización de Consumo Energético</li>
+                                <li><i class="fa-solid fa-check"></i> Predicción Inteligente de Escenas</li>
+                                <li><i class="fa-solid fa-check"></i> Seguridad Proactiva y Preventiva</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Unified Pill -->
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-pill minimal">
+                <!-- Column 1: Brand -->
+                <div class="brand-col">
+                    <img src="assets/logo.png" alt="SAIDEX 4.0"
+                        style="height: 60px; filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.3)); margin-bottom: 15px;">
+                    <p>Innovación y tecnología para transformar tu hogar en un espacio inteligente.</p>
+                    <div class="social-links" style="margin-top: 15px; display: flex; gap: 20px;">
+                        <a href="https://www.facebook.com/share/1DKk2KMXqo/" target="_blank"
+                            style="color: #00E5FF; font-size: 1.4rem;"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/capri4431?igsh=cWtvcjdqN3Vhbjgz" target="_blank"
+                            style="color: #00E5FF; font-size: 1.4rem;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://youtube.com/@jesusronaldocesararellanas5388/community?si=2w9Oj341CV9DP4Bu"
+                            target="_blank" style="color: #00E5FF; font-size: 1.4rem;"><i
+                                class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@arellanasanchez2006" target="_blank"
+                            style="color: #00E5FF; font-size: 1.4rem;"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Navigation -->
+                <div class="nav-col">
+                    <h4>NAVEGACIÓN</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="proyectos.html">Proyectos</a></li>
+                        <li><a href="tienda.html">Tienda</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact -->
+                <div class="contact-col">
+                    <h4>CONTACTO</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-phone" style="color: #00E5FF; margin-right:8px;"></i> +51 906 681 667
+                        </li>
+                        <li><i class="fa-solid fa-envelope" style="color: #00E5FF; margin-right:8px;"></i>
+                            info@saidex40.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="display:flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 20px;">
+                <p style="color: #64748B; font-size: 0.85rem;">&copy; 2026 SAIDEX 4.0 Domótica y Automatización.</p>
+    </div>
+    </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button Redesigned -->
+    <a href="https://wa.me/51906681667" class="whatsapp-float"
+        style="position: fixed; bottom: 40px; right: 40px; width: 65px; height: 65px; background: rgba(37, 211, 102, 0.2); backdrop-filter: blur(5px); border: 2px solid #25D366; color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; z-index: 100; box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);"
+        target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
